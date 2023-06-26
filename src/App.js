@@ -1,11 +1,20 @@
+import { useState } from "react";
 import "./App.css";
 
+const allTasks = [{ id: 121212, title: "Zadanko" }];
+
 function App() {
+  const [tasks, setTasks] = useState([]);
+
+  function handleAddTask(task) {
+    setTasks((tasks) => [...tasks, task]);
+  }
+
   return (
     <>
       <Header />
-      <TaskAdd />
-      <TaskSession />
+      <TasksList tasks={tasks} />
+      <TaskAdd onAddTask={handleAddTask} />
     </>
   );
 }
@@ -14,50 +23,95 @@ function Header() {
   return <h1>Pomodoro</h1>;
 }
 
-function TaskAdd() {
+function TasksList({ tasks }) {
+  console.log(tasks);
   return (
-    <>
-      <label>Task:</label>
-      <input type="text" placeholder="type your task" />
-      <button>Add</button>
-      <SetTimer />
-    </>
+    <ul>
+      {tasks.map((task) => (
+        <Task task={task} key={task.id} />
+      ))}
+    </ul>
   );
 }
 
-function SetTimer() {
+function Task({ task }) {
   return (
-    <>
-      <label>Session time</label>
-      <input type="number" placeholder="25:00" />
-      <label>Number of sessions</label>
-      <input type="number" placeholder="4" />
-      <label>Break time</label>
-      <input type="number" placeholder="5:00" />
-    </>
-  );
-}
-
-function TaskSession() {
-  return (
-    <>
-      <h2>Task name</h2>
+    <li>
+      <h2>{task.title}</h2>
       <div>
-        <p>Session time: 25:00</p>
-        <p>Break time: 5:00</p>
+        <p>Session time: {task.time}</p>
+        <p>Break time: {task.breakTime}</p>
         <p>
-          Session: <span>1</span>/<span>4</span>
+          Session: <span>1</span>/<span>{task.sessions}</span>
         </p>
       </div>
       <div>
-        <div>25:00</div>
+        <div>{task.time}</div>
         <div>
           <button>Start</button>
           <button>Stop</button>
           <button>Reset</button>
         </div>
       </div>
-    </>
+    </li>
+  );
+}
+
+function TaskAdd({ onAddTask }) {
+  const [time, setTime] = useState(25);
+  const [breakTime, setBreakTime] = useState(5);
+  const [sessions, setSessions] = useState(4);
+  const [title, setTitle] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!title || !time || !breakTime || !sessions) return;
+
+    const id = crypto.randomUUID();
+
+    const newTask = {
+      id,
+      title,
+      time,
+      breakTime,
+      sessions,
+    };
+
+    onAddTask(newTask);
+  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>Task:</label>
+      <input
+        type="text"
+        placeholder="type your task"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <label>Session time</label>
+      <input
+        type="number"
+        placeholder="25:00"
+        value={time}
+        onChange={(e) => setTime(e.target.value)}
+      />
+      <label>Number of sessions</label>
+      <input
+        type="number"
+        placeholder="4"
+        value={sessions}
+        onChange={(e) => setSessions(e.target.value)}
+      />
+      <label>Break time</label>
+      <input
+        type="number"
+        placeholder="5:00"
+        value={breakTime}
+        onChange={(e) => setBreakTime(e.target.value)}
+      />
+      <button>Add</button>
+    </form>
   );
 }
 
