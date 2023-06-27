@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 const allTasks = [{ id: 121212, title: "Zadanko" }];
@@ -13,8 +13,8 @@ function App() {
   return (
     <>
       <Header />
-      <TasksList tasks={tasks} />
       <TaskAdd onAddTask={handleAddTask} />
+      <TasksList tasks={tasks} />
     </>
   );
 }
@@ -24,7 +24,6 @@ function Header() {
 }
 
 function TasksList({ tasks }) {
-  console.log(tasks);
   return (
     <ul>
       {tasks.map((task) => (
@@ -35,6 +34,31 @@ function TasksList({ tasks }) {
 }
 
 function Task({ task }) {
+  // const [timer, setTimer] = useState(`${task.time}:00`);
+  const [minutes, setMinutes] = useState(`${task.time}`);
+  const [seconds, setSeconds] = useState(0);
+  const [isRunning, setIsRunning] = useState(null);
+
+  useEffect(() => {
+    let interval;
+    interval = setInterval(() => {
+      if (isRunning) {
+        if (seconds > 0) {
+          setSeconds((seconds) => seconds - 1);
+        } else if (minutes > 0) {
+          setMinutes((minutes) => minutes - 1);
+          setSeconds(59);
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [seconds, minutes, isRunning]);
+
+  function startTimer() {
+    setIsRunning(true);
+  }
+
   return (
     <li>
       <h2>{task.title}</h2>
@@ -48,7 +72,10 @@ function Task({ task }) {
       <div>
         <div>{task.time}</div>
         <div>
-          <button>Start</button>
+          {minutes}:{seconds}
+        </div>
+        <div>
+          <button onClick={startTimer}>Start</button>
           <button>Stop</button>
           <button>Reset</button>
         </div>
