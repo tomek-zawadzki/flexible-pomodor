@@ -59,6 +59,16 @@ function Task({ task }) {
     setIsRunning(true);
   }
 
+  function stopTimer() {
+    setIsRunning(false);
+  }
+
+  function resetTimer() {
+    setIsRunning(false);
+    setMinutes(`${task.time}`);
+    setSeconds(0);
+  }
+
   return (
     <li>
       <h2>{task.title}</h2>
@@ -76,8 +86,8 @@ function Task({ task }) {
         </div>
         <div>
           <button onClick={startTimer}>Start</button>
-          <button>Stop</button>
-          <button>Reset</button>
+          <button onClick={stopTimer}>Stop</button>
+          <button onClick={resetTimer}>Reset</button>
         </div>
       </div>
     </li>
