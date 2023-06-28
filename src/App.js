@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-const allTasks = [{ id: 121212, title: "Zadanko" }];
-
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [selectedTask, setSelectedTask] = useState(null);
 
   function handleAddTask(task) {
     setTasks((tasks) => [...tasks, task]);
+  }
+
+  function handleSelectedTask(task) {
+    setSelectedTask((curr) => (curr?.id === task.id ? null : task));
   }
 
   return (
     <>
       <Header />
       <TaskAdd onAddTask={handleAddTask} />
-      <TasksList tasks={tasks} />
+      <TasksList
+        tasks={tasks}
+        selectedTask={selectedTask}
+        onSelected={handleSelectedTask}
+      />
     </>
   );
 }
@@ -23,21 +30,27 @@ function Header() {
   return <h1>Pomodoro</h1>;
 }
 
-function TasksList({ tasks }) {
+function TasksList({ tasks, selectedTask, onSelected }) {
   return (
     <ul>
       {tasks.map((task) => (
-        <Task task={task} key={task.id} />
+        <Task
+          task={task}
+          key={task.id}
+          selectedTask={selectedTask}
+          onSelected={onSelected}
+        />
       ))}
     </ul>
   );
 }
 
-function Task({ task }) {
-  // const [timer, setTimer] = useState(`${task.time}:00`);
+function Task({ task, selectedTask, onSelected }) {
   const [minutes, setMinutes] = useState(`${task.time}`);
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(null);
+
+  const isSelected = selectedTask?.id === task.id;
 
   useEffect(() => {
     let interval;
@@ -71,23 +84,23 @@ function Task({ task }) {
 
   return (
     <li>
-      <h2>{task.title}</h2>
-      <div>
+      <h2 onClick={() => onSelected(task)}>{task.title}</h2>
+      <div className={isSelected ? "" : "hidden"}>
         <p>Session time: {task.time}</p>
         <p>Break time: {task.breakTime}</p>
         <p>
           Session: <span>1</span>/<span>{task.sessions}</span>
         </p>
-      </div>
-      <div>
-        <div>{task.time}</div>
+
         <div>
-          {minutes}:{seconds}
-        </div>
-        <div>
-          <button onClick={startTimer}>Start</button>
-          <button onClick={stopTimer}>Stop</button>
-          <button onClick={resetTimer}>Reset</button>
+          <div>
+            {minutes}:{seconds}
+          </div>
+          <div>
+            <button onClick={startTimer}>Start</button>
+            <button onClick={stopTimer}>Stop</button>
+            <button onClick={resetTimer}>Reset</button>
+          </div>
         </div>
       </div>
     </li>
@@ -116,6 +129,8 @@ function TaskAdd({ onAddTask }) {
     };
 
     onAddTask(newTask);
+
+    setTitle("");
   }
   return (
     <form onSubmit={handleSubmit}>
