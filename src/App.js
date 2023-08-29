@@ -16,7 +16,7 @@ function App() {
   }
 
   return (
-    <>
+    <div className="flex flex-col items-center">
       <Header />
       <TaskAdd onAddTask={handleAddTask} />
       <TasksList
@@ -24,12 +24,12 @@ function App() {
         selectedTask={selectedTask}
         onSelected={handleSelectedTask}
       />
-    </>
+    </div>
   );
 }
 
 function Header() {
-  return <h1>Pomodoro</h1>;
+  return <h1 className="m-8 text-center text-[52px]">Pomodoro</h1>;
 }
 
 export default App;

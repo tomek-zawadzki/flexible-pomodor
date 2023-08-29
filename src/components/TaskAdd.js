@@ -26,36 +26,43 @@ export function TaskAdd({ onAddTask }) {
     setTitle("");
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Task:</label>
+    <form className="flex flex-col items-center" onSubmit={handleSubmit}>
+      <label className="text-2xl">Task</label>
       <input
+        className="w-64	border-2 border-solid border-black p-1 text-center"
         type="text"
         placeholder="type your task"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <label>Session time</label>
+
+      <label className="text-2xl">Session time</label>
       <input
+        className="w-64	border-2 border-solid border-black p-1 text-center"
         type="number"
         placeholder="25:00"
         value={time}
         onChange={(e) => setTime(e.target.value)}
       />
-      <label>Number of sessions</label>
+      <label className="text-2xl">Number of sessions</label>
       <input
+        className="w-64	border-2 border-solid border-black p-1 text-center"
         type="number"
         placeholder="4"
         value={sessions}
         onChange={(e) => setSessions(e.target.value)}
       />
-      <label>Break time</label>
+      <label className="text-2xl">Break time</label>
       <input
+        className="w-64	border-2 border-solid border-black p-1 text-center"
         type="number"
         placeholder="5:00"
         value={breakTime}
         onChange={(e) => setBreakTime(e.target.value)}
       />
-      <button>Add</button>
+      <button className="m-4	w-16 border-2 border-solid border-black p-1">
+        Add
+      </button>
     </form>
   );
 }
