@@ -49,9 +49,15 @@ export function Task({ task, selectedTask, onSelected }) {
 
   return (
     <>
-      <li>
-        <h2 onClick={() => onSelected(task)}>{task.title}</h2>
-        <div className={isSelected ? "" : "hidden"}>
+      <li className="flex w-56 flex-col gap-6 border-2 border-solid p-4">
+        <h2 className="text-center text-2xl" onClick={() => onSelected(task)}>
+          {task.title}
+        </h2>
+        <div
+          className={`${
+            isSelected ? "" : "hidden"
+          } flex w-auto flex-col gap-2 `}
+        >
           <p>Session time: {task.time}</p>
           <p>Break time: {task.breakTime}</p>
           <p>
