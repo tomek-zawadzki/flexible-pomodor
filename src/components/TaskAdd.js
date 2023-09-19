@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Button from "./Button";
 
 export function TaskAdd({ onAddTask }) {
   const [time, setTime] = useState(25);
@@ -60,9 +61,9 @@ export function TaskAdd({ onAddTask }) {
         value={breakTime}
         onChange={(e) => setBreakTime(e.target.value)}
       />
-      <button className="m-4	w-16 border-2 border-solid border-black p-1">
-        Add
-      </button>
+      <div className="pb-12 pt-8">
+        <Button name="Add" />
+      </div>
     </form>
   );
 }

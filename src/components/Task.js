@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import BreakWindow from "./BreakWindow";
+import Button from "./Button";
 
 export function Task({ task, selectedTask, onSelected }) {
   const [minutes, setMinutes] = useState(`${task.time}`);
@@ -58,7 +59,9 @@ export function Task({ task, selectedTask, onSelected }) {
             isSelected ? "" : "hidden"
           } flex w-auto flex-col gap-2 `}
         >
-          <p>Session time: {task.time}</p>
+          <p className="font-bold">
+            Session time: <span className="font-normal">{task.time}</span>
+          </p>
           <p>Break time: {task.breakTime}</p>
           <p>
             Session: <span>1</span>/<span>{task.sessions}</span>
@@ -68,10 +71,10 @@ export function Task({ task, selectedTask, onSelected }) {
             <div>
               {minutes}:{seconds}
             </div>
-            <div>
-              <button onClick={startTimer}>Start</button>
-              <button onClick={stopTimer}>Stop</button>
-              <button onClick={resetTimer}>Reset</button>
+            <div className="flex justify-between gap-2">
+              <Button name="Start" onClick={startTimer} />
+              <Button name="Stop" onClick={stopTimer} />
+              <Button name="Reset" onClick={resetTimer} />
             </div>
           </div>
         </div>
