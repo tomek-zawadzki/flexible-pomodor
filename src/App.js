@@ -4,6 +4,7 @@ import { TaskAdd } from "./components/TaskAdd";
 
 import "./App.css";
 import StartingPage from "./components/StartingPage";
+import PomodoroTechnique from "./components/PomodoroTechnique";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -26,7 +27,8 @@ function App() {
         selectedTask={selectedTask}
         onSelected={handleSelectedTask}
       /> */}
-      <StartingPage />
+      {/* <StartingPage /> */}
+      <PomodoroTechnique />
     </div>
   );
 }
