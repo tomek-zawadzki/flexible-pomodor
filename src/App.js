@@ -3,6 +3,7 @@ import { TasksList } from "./components/TasksList";
 import { TaskAdd } from "./components/TaskAdd";
 
 import "./App.css";
+import StartingPage from "./components/StartingPage";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -18,13 +19,14 @@ function App() {
 
   return (
     <div className="flex flex-col items-center">
-      <Header />
+      {/* <Header />
       <TaskAdd onAddTask={handleAddTask} />
       <TasksList
         tasks={tasks}
         selectedTask={selectedTask}
         onSelected={handleSelectedTask}
-      />
+      /> */}
+      <StartingPage />
     </div>
   );
 }
