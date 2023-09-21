@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "./Button";
 
 function PomodoroTechnique() {
@@ -19,7 +20,9 @@ function PomodoroTechnique() {
         </p>
       </div>
       <div className="mt-20">
-        <Button name="Set your pomodoro" />
+        <Link to="/appLayout">
+          <Button name="Set your pomodoro" />
+        </Link>
       </div>
     </div>
   );
