@@ -7,14 +7,16 @@ import PageNotFound from "./components/PageNotFound";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<StartingPage />} />
-        <Route path="appLayout" element={<AppLayout />} />
-        <Route path="pomodoroTechnique" element={<PomodoroTechnique />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<StartingPage />} />
+          <Route path="appLayout" element={<AppLayout />} />
+          <Route path="pomodoroTechnique" element={<PomodoroTechnique />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
