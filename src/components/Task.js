@@ -1,8 +1,11 @@
 import Timer from "./Timer";
 import BreakWindow from "./BreakWindow";
+import { useState } from "react";
 
 export function Task({ task, selectedTask, onSelected }) {
   const { time, id, title, breakTime, sessions } = task;
+  const [minutes, setMinutes] = useState(time);
+  const [seconds, setSeconds] = useState(0);
 
   const isSelected = selectedTask?.id === id;
 
@@ -25,10 +28,17 @@ export function Task({ task, selectedTask, onSelected }) {
             Session: <span>1</span>/<span>{sessions}</span>
           </p>
 
-          <Timer time={time} />
+          <Timer
+            time={time}
+            minutes={minutes}
+            seconds={seconds}
+            setMinutes={setMinutes}
+            setSeconds={setSeconds}
+          />
         </div>
       </li>
-      {/* {minutes === 0 && seconds === 0 ? <BreakWindow /> : null} */}
+
+      {minutes === 0 && seconds === 0 ? <BreakWindow task={task} /> : null}
     </>
   );
 }

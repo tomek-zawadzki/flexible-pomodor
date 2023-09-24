@@ -1,23 +1,9 @@
 import { useEffect, useState } from "react";
 
-function Timer({ time }) {
-  const [minutes, setMinutes] = useState(`${time}`);
-  const [seconds, setSeconds] = useState(0);
+function Timer({ time, minutes, seconds, setMinutes, setSeconds }) {
+  // const [minutes, setMinutes] = useState(time);
+  // const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(null);
-
-  function startTimer() {
-    setIsRunning(true);
-  }
-
-  function stopTimer() {
-    setIsRunning(false);
-  }
-
-  function resetTimer() {
-    setIsRunning(false);
-    setMinutes(`${time}`);
-    setSeconds(0);
-  }
 
   useEffect(() => {
     let interval;
@@ -33,7 +19,21 @@ function Timer({ time }) {
     }, 100);
 
     return () => clearInterval(interval);
-  }, [seconds, minutes, isRunning]);
+  }, [minutes, seconds, setSeconds, setMinutes, isRunning]);
+
+  function startTimer() {
+    setIsRunning(true);
+  }
+
+  function stopTimer() {
+    setIsRunning(false);
+  }
+
+  function resetTimer() {
+    setIsRunning(false);
+    setMinutes(time);
+    setSeconds(0);
+  }
 
   return (
     <div>
