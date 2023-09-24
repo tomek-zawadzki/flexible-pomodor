@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 
 function Timer({ time, minutes, seconds, setMinutes, setSeconds }) {
-  // const [minutes, setMinutes] = useState(time);
-  // const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(null);
 
   useEffect(() => {
@@ -35,9 +33,15 @@ function Timer({ time, minutes, seconds, setMinutes, setSeconds }) {
     setSeconds(0);
   }
 
+  useEffect(() => {
+    if (seconds === 0 && minutes === 0) {
+      stopTimer();
+    }
+  }, [seconds, minutes]);
+
   return (
     <div>
-      <div>
+      <div className="p-8 text-center text-5xl">
         {minutes}:{seconds}
       </div>
       <div className="flex justify-between gap-2">

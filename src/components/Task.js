@@ -1,13 +1,31 @@
 import Timer from "./Timer";
 import BreakWindow from "./BreakWindow";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Task({ task, selectedTask, onSelected }) {
   const { time, id, title, breakTime, sessions } = task;
   const [minutes, setMinutes] = useState(time);
   const [seconds, setSeconds] = useState(0);
+  const [showBreak, setShowBreak] = useState(false);
+  const [currentSession, setCurrentSession] = useState(1);
 
   const isSelected = selectedTask?.id === id;
+
+  console.log(sessions);
+
+  useEffect(() => {
+    if (minutes === 0 && seconds === 0) {
+      setShowBreak(true);
+      setMinutes(time);
+      setCurrentSession((currentSession) => currentSession + 1);
+    }
+  }, [minutes, seconds, time]);
+
+  if (currentSession > sessions) {
+    alert("work done");
+    setCurrentSession(sessions);
+    setShowBreak(false);
+  }
 
   return (
     <>
@@ -23,9 +41,9 @@ export function Task({ task, selectedTask, onSelected }) {
           <p className="font-bold">
             Session time: <span className="font-normal">{time}</span>
           </p>
-          <p>Break time: {breakTime}</p>
+          <p className="">Break time: {breakTime}</p>
           <p>
-            Session: <span>1</span>/<span>{sessions}</span>
+            Session: <span>{currentSession}</span>/<span>{sessions}</span>
           </p>
 
           <Timer
@@ -37,8 +55,7 @@ export function Task({ task, selectedTask, onSelected }) {
           />
         </div>
       </li>
-
-      {minutes === 0 && seconds === 0 ? <BreakWindow task={task} /> : null}
+      {showBreak && <BreakWindow task={task} setShowBreak={setShowBreak} />}
     </>
   );
 }
