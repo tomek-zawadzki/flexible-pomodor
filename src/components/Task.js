@@ -29,7 +29,7 @@ export function Task({ task, selectedTask, onSelected }) {
 
   return (
     <>
-      <li className="flex w-56 flex-col gap-6 border-2 border-solid p-4">
+      <li className="flex h-fit w-56 flex-col gap-6 border-2 border-solid p-4">
         <h2 className="text-center text-2xl" onClick={() => onSelected(task)}>
           {title}
         </h2>
