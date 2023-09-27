@@ -1,5 +1,5 @@
-import { useState } from "react";
-
+import { useContext, useState } from "react";
+import { TasksContext } from "./AppLayout";
 import Button from "./Button";
 
 export function TaskAdd({ onAddTask }) {
@@ -8,6 +8,8 @@ export function TaskAdd({ onAddTask }) {
   const [sessions, setSessions] = useState(4);
   const [title, setTitle] = useState("");
   const [showAddTask, setShowAddTask] = useState(true);
+
+  const tasks = useContext(TasksContext);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -27,15 +29,21 @@ export function TaskAdd({ onAddTask }) {
     onAddTask(newTask);
 
     setTitle("");
+
+    setShowAddTask(false);
   }
+  console.log(tasks.length);
   return (
     <>
-      <button
-        className="mb-4 border p-2"
-        onClick={() => setShowAddTask((show) => !show)}
-      >
-        show
-      </button>
+      {tasks.length > 0 ? (
+        <button
+          className="mb-4 border p-2"
+          onClick={() => setShowAddTask((show) => !show)}
+        >
+          {showAddTask ? "Hide form" : "Add new task"}
+        </button>
+      ) : null}
+
       {showAddTask && (
         <form
           className="flex w-[50%] flex-col items-center  gap-1"

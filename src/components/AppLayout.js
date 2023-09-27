@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import { TasksList } from "./TasksList";
 import { TaskAdd } from "./TaskAdd";
+
+export const TasksContext = createContext([]);
 
 function AppLayout() {
   const [tasks, setTasks] = useState([]);
@@ -15,15 +17,17 @@ function AppLayout() {
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <Header />
-      <TaskAdd onAddTask={handleAddTask} />
-      <TasksList
-        tasks={tasks}
-        selectedTask={selectedTask}
-        onSelected={handleSelectedTask}
-      />
-    </div>
+    <TasksContext.Provider value={tasks}>
+      <div className="flex flex-col items-center">
+        <Header />
+        <TaskAdd onAddTask={handleAddTask} />
+        <TasksList
+          tasks={tasks}
+          selectedTask={selectedTask}
+          onSelected={handleSelectedTask}
+        />
+      </div>
+    </TasksContext.Provider>
   );
 }
 
