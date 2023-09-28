@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { TasksList } from "./TasksList";
 import { TaskAdd } from "./TaskAdd";
+import TaskView from "./TaskView";
 
 export const TasksContext = createContext([]);
 
@@ -17,11 +18,16 @@ function AppLayout() {
   }
 
   return (
-    <TasksContext.Provider value={tasks}>
+    <TasksContext.Provider value={{ tasks, selectedTask, handleSelectedTask }}>
       <div className="flex flex-col items-center">
         <Header />
         <TaskAdd onAddTask={handleAddTask} />
         <TasksList
+          tasks={tasks}
+          selectedTask={selectedTask}
+          onSelected={handleSelectedTask}
+        />
+        <TaskView
           tasks={tasks}
           selectedTask={selectedTask}
           onSelected={handleSelectedTask}

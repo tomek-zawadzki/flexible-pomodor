@@ -9,6 +9,7 @@ export function TasksList({ tasks, selectedTask, onSelected }) {
           key={task.id}
           selectedTask={selectedTask}
           onSelected={onSelected}
+          classNameValue="hidden"
         />
       ))}
     </ul>

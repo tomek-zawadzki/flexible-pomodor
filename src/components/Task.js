@@ -2,16 +2,14 @@ import Timer from "./Timer";
 import BreakWindow from "./BreakWindow";
 import { useEffect, useState } from "react";
 
-export function Task({ task, selectedTask, onSelected }) {
+export function Task({ task, selectedTask, onSelected, classNameValue }) {
   const { time, id, title, breakTime, sessions } = task;
   const [minutes, setMinutes] = useState(time);
   const [seconds, setSeconds] = useState(0);
   const [showBreak, setShowBreak] = useState(false);
   const [currentSession, setCurrentSession] = useState(1);
 
-  const isSelected = selectedTask?.id === id;
-
-  console.log(sessions);
+  // const isSelected = selectedTask?.id === id;
 
   useEffect(() => {
     if (minutes === 0 && seconds === 0) {
@@ -34,9 +32,10 @@ export function Task({ task, selectedTask, onSelected }) {
           {title}
         </h2>
         <div
-          className={`${
-            isSelected ? "" : "hidden"
-          } flex w-auto flex-col gap-2 `}
+          // className={`${
+          //   isSelected ? "" : "hidden"
+          // } flex w-auto flex-col gap-2 `}
+          className={classNameValue}
         >
           <p className="font-bold">
             Session time: <span className="font-normal">{time}</span>

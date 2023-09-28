@@ -32,15 +32,15 @@ export function TaskAdd({ onAddTask }) {
 
     setShowAddTask(false);
   }
-  console.log(tasks.length);
+
   return (
     <>
-      {tasks.length > 0 ? (
+      {tasks ? (
         <button
           className="mb-4 border p-2"
           onClick={() => setShowAddTask((show) => !show)}
         >
-          {showAddTask ? "Hide form" : "Add new task"}
+          {showAddTask ? "Hide form" : "Add new pomodoro"}
         </button>
       ) : null}
 
