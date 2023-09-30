@@ -14,7 +14,7 @@ function BreakWindow({ task, setShowBreak }) {
   }, [minutes, seconds, setShowBreak]);
 
   return (
-    <div className=" flex flex-col items-center justify-center border-2 border-black p-5">
+    <div className=" flex h-full w-full flex-col items-center justify-center  p-5">
       <h2 className="text-4xl">Break</h2>
       <div className="">
         <Timer

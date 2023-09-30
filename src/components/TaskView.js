@@ -6,7 +6,7 @@ function TaskView({ selectedTask, onSelected }) {
   const { tasks } = useContext(TasksContext);
 
   return (
-    <div className="mt-6 h-[600px] w-[30%] border">
+    <div className="mt-6 h-[22rem] w-[30%] min-w-[22rem] border">
       {selectedTask &&
         tasks
           .filter((task) => task.id === selectedTask.id)

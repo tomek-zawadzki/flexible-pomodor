@@ -27,34 +27,33 @@ export function Task({ task, selectedTask, onSelected, classNameValue }) {
 
   return (
     <>
-      <li className="flex h-fit w-56 flex-col gap-6 border-2 border-solid p-4">
-        <h2 className="text-center text-2xl" onClick={() => onSelected(task)}>
-          {title}
-        </h2>
-        <div
-          // className={`${
-          //   isSelected ? "" : "hidden"
-          // } flex w-auto flex-col gap-2 `}
-          className={classNameValue}
-        >
-          <p className="font-bold">
-            Session time: <span className="font-normal">{time}</span>
-          </p>
-          <p className="">Break time: {breakTime}</p>
-          <p>
-            Session: <span>{currentSession}</span>/<span>{sessions}</span>
-          </p>
+      {showBreak ? (
+        <BreakWindow task={task} setShowBreak={setShowBreak} />
+      ) : (
+        <li className="w-ful] flex h-full flex-col gap-6 border-2 border-solid p-4">
+          <h2 className="text-center text-2xl" onClick={() => onSelected(task)}>
+            {title}
+          </h2>
+          <div className={classNameValue}>
+            <p className="font-bold">
+              Session time: <span className="font-normal">{time}</span>
+            </p>
+            <p className="">Break time: {breakTime}</p>
+            <p>
+              Session: <span>{currentSession}</span>/<span>{sessions}</span>
+            </p>
 
-          <Timer
-            time={time}
-            minutes={minutes}
-            seconds={seconds}
-            setMinutes={setMinutes}
-            setSeconds={setSeconds}
-          />
-        </div>
-      </li>
-      {showBreak && <BreakWindow task={task} setShowBreak={setShowBreak} />}
+            <Timer
+              time={time}
+              minutes={minutes}
+              seconds={seconds}
+              setMinutes={setMinutes}
+              setSeconds={setSeconds}
+            />
+          </div>
+        </li>
+      )}
+      {/* {showBreak && <BreakWindow task={task} setShowBreak={setShowBreak} />} */}
     </>
   );
 }

@@ -14,7 +14,7 @@ function Timer({ time, minutes, seconds, setMinutes, setSeconds }) {
           setSeconds(59);
         }
       }
-    }, 100);
+    }, 10);
 
     return () => clearInterval(interval);
   }, [minutes, seconds, setSeconds, setMinutes, isRunning]);
@@ -41,24 +41,24 @@ function Timer({ time, minutes, seconds, setMinutes, setSeconds }) {
 
   return (
     <div>
-      <div className="p-8 text-center text-5xl">
+      <div className="p-8 text-center text-7xl">
         {minutes}:{seconds}
       </div>
-      <div className="flex justify-between gap-2">
+      <div className="flex justify-around gap-2">
         <button
-          className="rounded-md border-2 border-black px-2 py-1"
+          className="min-w-[4rem] rounded-md border-2 border-black px-2 py-1"
           onClick={startTimer}
         >
           Start
         </button>
         <button
-          className="rounded-md border-2 border-black px-2 py-1"
+          className="min-w-[4rem] rounded-md border-2 border-black px-2 py-1"
           onClick={stopTimer}
         >
           Stop
         </button>
         <button
-          className="rounded-md border-2 border-black px-2 py-1"
+          className="min-w-[4rem] rounded-md border-2 border-black px-2 py-1"
           onClick={resetTimer}
         >
           Reset
