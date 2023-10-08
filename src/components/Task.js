@@ -1,6 +1,7 @@
 import Timer from "./Timer";
 import BreakWindow from "./BreakWindow";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { TasksContext } from "./AppLayout";
 
 export function Task({ task, selectedTask, onSelected, classNameValue }) {
   const { time, id, title, breakTime, sessions } = task;
@@ -9,6 +10,7 @@ export function Task({ task, selectedTask, onSelected, classNameValue }) {
   const [showBreak, setShowBreak] = useState(false);
   const [currentSession, setCurrentSession] = useState(1);
 
+  const { tasks, setTasks } = useContext(TasksContext);
   // const isSelected = selectedTask?.id === id;
 
   useEffect(() => {
@@ -25,16 +27,28 @@ export function Task({ task, selectedTask, onSelected, classNameValue }) {
     setShowBreak(false);
   }
 
+  function handleDelete(selectedTaskID) {
+    setTasks((currTasks) => {
+      return currTasks.filter((task) => task.id !== selectedTaskID);
+    });
+  }
+
   return (
     <>
       {showBreak ? (
         <BreakWindow task={task} setShowBreak={setShowBreak} />
       ) : (
-        <li className="w-ful] flex h-full flex-col gap-6 border-2 border-solid p-4">
+        <li className="w-ful] relative flex h-full flex-col gap-6 border-2 border-solid p-4">
           <h2 className="text-center text-2xl" onClick={() => onSelected(task)}>
             {title}
           </h2>
           <div className={classNameValue}>
+            <button
+              className="absolute right-2 top-2 border"
+              onClick={() => handleDelete(selectedTask.id)}
+            >
+              delete
+            </button>
             <p className="font-bold">
               Session time: <span className="font-normal">{time}</span>
             </p>

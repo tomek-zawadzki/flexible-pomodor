@@ -18,7 +18,9 @@ function AppLayout() {
   }
 
   return (
-    <TasksContext.Provider value={{ tasks, selectedTask, handleSelectedTask }}>
+    <TasksContext.Provider
+      value={{ tasks, selectedTask, handleSelectedTask, setTasks }}
+    >
       <div className="flex flex-col items-center">
         <Header />
         <TaskAdd onAddTask={handleAddTask} />
